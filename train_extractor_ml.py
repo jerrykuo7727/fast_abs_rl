@@ -111,9 +111,9 @@ def configure_training(net_type, opt, lr, clip_grad, lr_decay, batch_size):
 
     if net_type == 'ff':
         criterion = lambda logit, target: F.binary_cross_entropy_with_logits(
-            logit, target, reduce=False)
+            logit, target, reduction='none')
     else:
-        ce = lambda logit, target: F.cross_entropy(logit, target, reduce=False)
+        ce = lambda logit, target: F.cross_entropy(logit, target, reduction='none')
         def criterion(logits, targets):
             return sequence_loss(logits, targets, ce, pad_idx=-1)
 
